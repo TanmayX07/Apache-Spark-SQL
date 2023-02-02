@@ -1,0 +1,53 @@
+Question 1: What is a reason for including the DROP TABLE command before the table creation statement as shown below?
+DROP TABLE IF EXISTS DCDataRaw;
+CREATE TABLE DCDataRaw
+USING parquet 
+OPTIONS (
+ PATH "/mnt/training/iot-devices/data-centers/2019-q2-q3" 
+ )
+Answer: It ensures that we can run the notebook more than once without encountering an error due to a naming conflict
+
+Question 2: What additional information is provided when you use a DESCRIBE EXTENDED command? 
+Answer: Detailed table information, like which database holds the data and the table name 
+
+Question 3: What are three complex data types you can work with using Spark SQL?
+Answer: ARRAY, MAP, AND STRUCT
+
+Question 4: What keyword always starts a Common Table Expression (CTE) 
+Answer: WITH
+
+Question 5: How is data stored in a MAP type column
+Answer: key-value pairs
+
+Question 6: Question 6
+Identify the error: 
+SELECT             
+  key,
+  dc_id,
+  date,
+  value.description,  
+  value.ip,
+  value.temps,
+  value.co2_level
+FROM               
+  ExplodeSource
+WITH ExplodeSource  
+AS                  
+(                   
+  SELECT            
+    dc_id,
+    to_date(date) AS date,
+    EXPLODE (source)
+  FROM
+    DCDataRaw
+); 
+Answer: The WITH clause must go at the start of a CTE
+
+Question 7: If you want to create a new table based on an existing table, which design pattern could you use?
+Answer: CTAS
+
+Question 8: Fill in the blank: When working with arrays, we can access each element by its position on the array. We call that position the element's ______________
+Answer: Index
+
+Question 9: Imagine that you used a CTE to access some nested data. Later on in your notebook, you want to reference that table or view that was created by the CTE, but you get an error message when you write the query. What is the most likely cause of the error?
+Answer: CTE's do not create tables or views. Queries must be performed directly after definition
